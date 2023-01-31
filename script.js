@@ -13,6 +13,14 @@ const paddleWidth = 75
 let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
 let leftPressed = false
+     // brick variables 
+const brickRowCount = 3
+const brickColumnCount =5 
+const brickWidth = 75
+const brickHeight = 20
+const brickPadding = 10
+const brickOffsetTop = 30
+const brickOffsetLeft =30
 
 // Figure Out if keys are being pressed
 document.addEventListener("keydown", keyDownHandler, false)
@@ -71,12 +79,16 @@ function draw() {
     }
     if (y + dy < ballRadius) {
         dy = -dy
-        // Game Over Screen
+        // Paddle hitbox
     } else if (y + dy > canvas.height - ballRadius) {
+      if (x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy
+        // game over screen
+      } else {
         alert("GAME OVER")
         document.location.reload()
         clearInterval(interval)
-        
+      }
     }
    
     // Paddle Speed
