@@ -14,6 +14,29 @@ let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
 let leftPressed = false
 
+// Figure Out if keys are being pressed
+document.addEventListener("keydown", keyDownHandler, false)
+document.addEventListener("keyup", keyUpHandler, false)
+
+function keyDownHandler(e){
+    if (e.key === 'Right' || e.key === "ArrowRight") {
+       rightPressed = true
+    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+       leftPressed = true
+    }
+   }
+   
+   
+    function keyUpHandler(e) {
+     if (e.key === 'Right' || e.key === "ArrowRight") {
+        rightPressed = false
+     } else if (e.key === "Left" || e.key === "ArrowLeft") {
+        leftPressed = false
+     }
+    }
+   
+
+
 
 // Draw The Ball
 function drawBall() {
@@ -37,8 +60,7 @@ function drawBall() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawBall()
-    x += dx
-    y += dy
+    drawPaddle()
  // Wall Collision
     if (x + dx > canvas.width - ballRadius) {
         dx = -dx
@@ -52,30 +74,16 @@ function draw() {
     if (y + dy > canvas.height - ballRadius) {
         dy = -dy
     }
+    
+    if (rightPressed) {
+        paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth)
+    } else if (leftPressed) {
+        paddleX = Math.max(paddleX - 7, 0)
+    }
 
+    x += dx
+    y += dy
 }
-
-// Figure Out if keys are being pressed
-document.addEventListener("keydown", keyDownHandler, false)
-document.addEventListener("keyup", keyUpHandler, false)
-
-function keyDownHandler(e){
- if (e.key === 'Right' || e.key === "ArrowRight") {
-    rightPressed = true
- } else if (e.key === "Left" || e.key === "ArrowLeft") {
-    leftPressed = true
- }
-}
-
-
- function keyUpHandler(e) {
-  if (e.key === 'Right' || e.key === "ArrowRight") {
-     rightPressed = false
-  } else if (e.key === "Left" || e.key === "ArrowLeft") {
-     leftPressed = false
-  }
- }
-
 
 setInterval(draw, 10)
 
