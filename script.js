@@ -21,6 +21,7 @@ const brickHeight = 20
 const brickPadding = 10
 const brickOffsetTop = 30
 const brickOffsetLeft = 30
+let score = 0
 
 // Create Array of Bricks (Nested loop for Rows & Columns)
 const bricks = []
@@ -69,6 +70,7 @@ function keyUpHandler(e) {
             ) {
             dy = -dy
             b.status = 0
+            score++
           }
        }
     }
@@ -113,13 +115,19 @@ function drawBricks() {
     }
    }
 }
-   
+// Scoreboard
+function drawScore() {
+    ctx.font = "16px Arial"
+    ctx.fillstyle = "#0095DD"
+    ctx.fillText(`Score: ${score}`, 8, 20)
+}
 // Game Start
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawBricks()
     drawBall()
     drawPaddle()
+    drawScore()
     collisionDetection()
  // Wall Collision
     if (x + dx > canvas.width - ballRadius) {
