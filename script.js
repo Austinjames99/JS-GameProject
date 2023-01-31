@@ -14,13 +14,24 @@ let paddleX = (canvas.width - paddleWidth) / 2
 let rightPressed = false
 let leftPressed = false
      // brick variables 
-const brickRowCount = 3
-const brickColumnCount =5 
+const brickRowCount = 4
+const brickColumnCount = 5 
 const brickWidth = 75
 const brickHeight = 20
 const brickPadding = 10
 const brickOffsetTop = 30
-const brickOffsetLeft =30
+const brickOffsetLeft = 30
+
+// Create Array of Bricks
+const bricks = []
+for (let i = 0; i < brickColumnCount; i++) {
+    bricks[i] = []
+    for (let j = 0; j < brickRowCount; j++){
+        bricks[i][j] = { x: 0, y: 0}
+    }
+}
+
+
 
 // Figure Out if keys are being pressed
 document.addEventListener("keydown", keyDownHandler, false)
@@ -45,7 +56,23 @@ function keyUpHandler(e) {
  }
    
 
-
+//Draw Bricks
+function drawBricks() {
+ for (let i = 0; i < brickColumnCount; i++) {
+    for (let j = 0; j < brickRowCount; j++) {
+ // draw bricks in different spots
+      const brickX = i * (brickWidth + brickPadding) + brickOffsetLeft
+      const brickY = j * (brickHeight + brickPadding) + brickOffsetTop
+        bricks[i][j].x = 0
+        bricks[i][j].y = 0
+        ctx.beginPath()
+        ctx.rect(brickX, brickY, brickWidth, brickHeight)
+        ctx.fillStyle = "#0095DD"
+        ctx.fill()
+        ctx.closePath()
+    }
+ }
+}
 
 // Draw The Ball
 function drawBall() {
@@ -68,6 +95,7 @@ function drawBall() {
 // Move The Ball
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawBricks()
     drawBall()
     drawPaddle()
  // Wall Collision
