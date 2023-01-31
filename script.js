@@ -15,13 +15,14 @@ let rightPressed = false
 let leftPressed = false
      // brick variables 
 const brickRowCount = 3
-const brickColumnCount = 5 
+const brickColumnCount = 5
 const brickWidth = 75
 const brickHeight = 20
 const brickPadding = 10
 const brickOffsetTop = 30
 const brickOffsetLeft = 30
 let score = 0
+
 
 // Create Array of Bricks (Nested loop for Rows & Columns)
 const bricks = []
@@ -61,7 +62,7 @@ function keyUpHandler(e) {
     for (let i = 0; i < brickColumnCount; i++) {
         for (let j = 0; j < brickRowCount; j++) {
         const b = bricks[i][j]
-        if (b.status == 1){
+        if (b.status === 1){
             if (
                 x > b.x &&
                 x < b.x + brickWidth &&
@@ -71,17 +72,28 @@ function keyUpHandler(e) {
             dy = -dy
             b.status = 0
             score++
+            if (score === brickRowCount * brickColumnCount){
+                alert("YOU WIN, CONGRATULATIONS!")
+                document.location.reload()
+                clearInterval(interval)
+            }
           }
        }
     }
 }
 }
-   
+  
+//brick color
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
+var color = random_rgba()
 // Draw The Ball
 function drawBall() {
     ctx.beginPath()
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2)
-    ctx.fillStyle = "#0095DD"
+    ctx.fillStyle = color
     ctx.fill()
     ctx.closePath()
 }
@@ -90,11 +102,12 @@ function drawPaddle() {
     ctx.beginPath()
     ctx.rect(paddleX, canvas.height - paddleHeight, 
             paddleWidth, paddleHeight)
-    ctx.fillStyle = '#0095DD'
+    ctx.fillStyle = color
     ctx.fill()
     ctx.closePath()
 
 }
+
 
 //Draw Bricks
 function drawBricks() {
@@ -108,7 +121,7 @@ function drawBricks() {
            bricks[i][j].y = brickY
            ctx.beginPath()
            ctx.rect(brickX, brickY, brickWidth, brickHeight)
-           ctx.fillStyle = "#0095DD"
+           ctx.fillStyle = color
            ctx.fill()
            ctx.closePath()
        }
@@ -118,9 +131,11 @@ function drawBricks() {
 // Scoreboard
 function drawScore() {
     ctx.font = "16px Arial"
-    ctx.fillstyle = "#0095DD"
+    ctx.fillstyle = color
     ctx.fillText(`Score: ${score}`, 8, 20)
 }
+
+   
 // Game Start
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
