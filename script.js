@@ -59,12 +59,14 @@ function draw() {
 document.addEventListener("keydown", keyDownHandler, false)
 document.addEventListener("keyup", keyUpHandler, false)
 
-function keyDownHandler(e)
+function keyDownHandler(e){
  if (e.key === 'Right' || e.key === "ArrowRight") {
     rightPressed = true
  } else if (e.key === "Left" || e.key === "ArrowLeft") {
     leftPressed = true
  }
+}
+
 
  function keyUpHandler(e) {
   if (e.key === 'Right' || e.key === "ArrowRight") {
@@ -72,8 +74,8 @@ function keyDownHandler(e)
   } else if (e.key === "Left" || e.key === "ArrowLeft") {
      leftPressed = false
   }
-    
  }
+
 
 setInterval(draw, 10)
 
