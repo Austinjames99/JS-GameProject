@@ -18,22 +18,23 @@ let leftPressed = false
 document.addEventListener("keydown", keyDownHandler, false)
 document.addEventListener("keyup", keyUpHandler, false)
 
+// Figure out when keys are released 
 function keyDownHandler(e){
     if (e.key === 'Right' || e.key === "ArrowRight") {
        rightPressed = true
     } else if (e.key === "Left" || e.key === "ArrowLeft") {
        leftPressed = true
     }
-   }
+ }
    
    
-    function keyUpHandler(e) {
-     if (e.key === 'Right' || e.key === "ArrowRight") {
+function keyUpHandler(e) {
+    if (e.key === 'Right' || e.key === "ArrowRight") {
         rightPressed = false
-     } else if (e.key === "Left" || e.key === "ArrowLeft") {
+    } else if (e.key === "Left" || e.key === "ArrowLeft") {
         leftPressed = false
-     }
     }
+ }
    
 
 
@@ -70,11 +71,15 @@ function draw() {
     }
     if (y + dy < ballRadius) {
         dy = -dy
+        // Game Over Screen
+    } else if (y + dy > canvas.height - ballRadius) {
+        alert("GAME OVER")
+        document.location.reload()
+        clearInterval(interval)
+        
     }
-    if (y + dy > canvas.height - ballRadius) {
-        dy = -dy
-    }
-    
+   
+    // Paddle Speed
     if (rightPressed) {
         paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth)
     } else if (leftPressed) {
@@ -85,5 +90,5 @@ function draw() {
     y += dy
 }
 
-setInterval(draw, 10)
+const interval = setInterval(draw, 10)
 
