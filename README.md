@@ -11,7 +11,7 @@
 - **GAME OVER** if the ball falls below your paddle
 - **WIN** if all bricks are destroyed 
 
-- thanks for playing my game! 
+<h4>thanks for playing my game! <h4>
 
 - special thanks to MDN Web Docs and Stack overflow for helping me get through this project
 
