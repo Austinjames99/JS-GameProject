@@ -17,6 +17,5 @@
 
 
 <h3 align="left">Connect with me: https://github.com/Austinjames99</h3>
-<p align="left">
-</p>
+
 
